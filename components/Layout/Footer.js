@@ -186,14 +186,14 @@ export default function Footer() {
             </footer>
             <a href="#" id="scroll-top"><i class="far fa-arrow-up"></i></a>
             {/* <FloatingWhatsApp
-        phoneNumber="+91-7891444333"
-        accountName="Care Connect Center"
-        avatar="/assets/img/icon/brandicon.png" 
-        allowEsc
-        allowClickAway
-        notification
-        notificationSound
-      /> */}
+                phoneNumber="+91-7891444333"
+                accountName="Care Connect Center"
+                avatar="/assets/img/icon/brandicon.png"
+                allowEsc
+                allowClickAway
+                notification
+                notificationSound
+            /> */}
         </>
     )
 }
