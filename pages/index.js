@@ -54,94 +54,93 @@ export default function Home() {
 
             }
          }
-      };
+        };
       xhttp.send("your-name=" + event.target.name.value +
             "&your-email=" + event.target.email.value +
             "&phone=" + event.target.phone.value +
             "&service=" + event.target.service.value +
             "&your-message=" + event.target.message.value)
-
    }
 
-   const registerUser2 = async event => {
-      event.preventDefault()
+//    const registerUser2 = async event => {
+//       event.preventDefault()
 
-      document.getElementById("submitbuttonform2").value = "Submitting form...."
+//       document.getElementById("submitbuttonform2").value = "Submitting form...."
 
-      const xhttp = new XMLHttpRequest();
-      xhttp.onload = function () {
-         // console.log(this.responseText.status);
-      }
-      xhttp.open("Post", 'https://phpstack-1457894-5753298.cloudwaysapps.com/wp-json/contact-form-7/v1/contact-forms/6/feedback');
-      xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
-      xhttp.onreadystatechange = function () {
-         if (xhttp.readyState == 4) {
-            var res = JSON.parse(xhttp.responseText);
-            console.log(res)
-            if (res.status == "mail_sent") {
-               document.getElementById("contactForm2").reset();
+//       const xhttp = new XMLHttpRequest();
+//       xhttp.onload = function () {
+//          // console.log(this.responseText.status);
+//       }
+//       xhttp.open("Post", 'https://phpstack-1457894-5753298.cloudwaysapps.com/wp-json/contact-form-7/v1/contact-forms/6/feedback');
+//       xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
+//       xhttp.onreadystatechange = function () {
+//          if (xhttp.readyState == 4) {
+//             var res = JSON.parse(xhttp.responseText);
+//             console.log(res)
+//             if (res.status == "mail_sent") {
+//                document.getElementById("contactForm2").reset();
 
-               document.getElementById("showlabel2").innerHTML = "Your submission has been received and we will contact you soon";
+//                document.getElementById("showlabel2").innerHTML = "Your submission has been received and we will contact you soon";
 
-               document.getElementById("showlabel2").style.display = "block";
-               window.setTimeout(function () {
-                   window.location.href = "/thankyou"
-               }, 10);
+//                document.getElementById("showlabel2").style.display = "block";
+//                window.setTimeout(function () {
+//                    window.location.href = "/thankyou"
+//                }, 10);
 
-            } else {
-               document.getElementById("showlabel2").innerHTML = "There was a problem with the request.";
-               document.getElementById("showlabel2").style.display = "block";
+//             } else {
+//                document.getElementById("showlabel2").innerHTML = "There was a problem with the request.";
+//                document.getElementById("showlabel2").style.display = "block";
 
-            }
-         }
-      };
-      xhttp.send("your-name=" + event.target.name.value +
-            "&your-email=" + event.target.email.value +
-            "&phone=" + event.target.phone.value +
-            "&service=" + event.target.service.value +
-            "&your-message=" + event.target.message.value)
+//             }
+//          }
+//       };
+//       xhttp.send("your-name=" + event.target.name.value +
+//             "&your-email=" + event.target.email.value +
+//             "&phone=" + event.target.phone.value +
+//             "&service=" + event.target.service.value +
+//             "&your-message=" + event.target.message.value)
 
-   }
+//    }
 
-   const registerUser3 = async event => {
-      event.preventDefault()
+//    const registerUser3 = async event => {
+//       event.preventDefault()
 
-      document.getElementById("submitbuttonform3").value = "Submitting form...."
+//       document.getElementById("submitbuttonform3").value = "Submitting form...."
 
-      const xhttp = new XMLHttpRequest();
-      xhttp.onload = function () {
-         // console.log(this.responseText.status);
-      }
-      xhttp.open("Post", 'https://phpstack-1457894-5753298.cloudwaysapps.com/wp-json/contact-form-7/v1/contact-forms/6/feedback');
-      xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
-      xhttp.onreadystatechange = function () {
-         if (xhttp.readyState == 4) {
-            var res = JSON.parse(xhttp.responseText);
-            console.log(res)
-            if (res.status == "mail_sent") {
-               document.getElementById("contactForm3").reset();
+//       const xhttp = new XMLHttpRequest();
+//       xhttp.onload = function () {
+//          // console.log(this.responseText.status);
+//       }
+//       xhttp.open("Post", 'https://phpstack-1457894-5753298.cloudwaysapps.com/wp-json/contact-form-7/v1/contact-forms/6/feedback');
+//       xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
+//       xhttp.onreadystatechange = function () {
+//          if (xhttp.readyState == 4) {
+//             var res = JSON.parse(xhttp.responseText);
+//             console.log(res)
+//             if (res.status == "mail_sent") {
+//                document.getElementById("contactForm3").reset();
 
-               document.getElementById("showlabel3").innerHTML = "Your submission has been received and we will contact you soon";
+//                document.getElementById("showlabel3").innerHTML = "Your submission has been received and we will contact you soon";
 
-               document.getElementById("showlabel3").style.display = "block";
-               window.setTimeout(function () {
-                   window.location.href = "/thankyou"
-               }, 10);
+//                document.getElementById("showlabel3").style.display = "block";
+//                window.setTimeout(function () {
+//                    window.location.href = "/thankyou"
+//                }, 10);
 
-            } else {
-               document.getElementById("showlabel3").innerHTML = "There was a problem with the request.";
-               document.getElementById("showlabel3").style.display = "block";
+//             } else {
+//                document.getElementById("showlabel3").innerHTML = "There was a problem with the request.";
+//                document.getElementById("showlabel3").style.display = "block";
 
-            }
-         }
-      };
-      xhttp.send("your-name=" + event.target.name.value +
-            "&your-email=" + event.target.email.value +
-            "&phone=" + event.target.phone.value +
-            "&service=" + event.target.service.value +
-            "&your-message=" + event.target.message.value)
+//             }
+//          }
+//       };
+//       xhttp.send("your-name=" + event.target.name.value +
+//             "&your-email=" + event.target.email.value +
+//             "&phone=" + event.target.phone.value +
+//             "&service=" + event.target.service.value +
+//             "&your-message=" + event.target.message.value)
 
-   }
+//    }
 
    const [modalOpen, setModalOpen] = React.useState(false);
 
@@ -341,10 +340,7 @@ export default function Home() {
 
                                     <h2 className="hero-title wow fadeInRight" data-delay=".50s">
                                          Better Care <br></br>Better Outcomes <br></br>Comfort of Home </h2>
-
-
-
-                             </div>
+                            </div>
 
                             </div>
 
@@ -453,7 +449,6 @@ export default function Home() {
                                 </div>
                             </div>
                         </div>
-
                         </div>
                     </div>
                 </div>
@@ -1229,7 +1224,7 @@ export default function Home() {
                                     {/* <h4>Book an appointment with our expert</h4> */}
                                     <h4>Book Your Services!</h4>
                                 </div>
-           <form id="contactForm" onSubmit={registerUser}>
+                                <form id="contactForm" onSubmit={registerUser}>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -1288,7 +1283,7 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </form>
-                                </div>
+                            </div>
         </ModalBody>
 
       </Modal>
