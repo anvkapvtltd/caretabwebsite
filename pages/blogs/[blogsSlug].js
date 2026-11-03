@@ -56,52 +56,54 @@ export async function getServerSideProps(context) {
 ========================= */
 const SingleBlog = ({ posts, posts5, cat }) => {
 
-        useEffect(() => {
-          document.body.classList.add("headerbodyc");
+  console.log("posts data", posts);
 
-          return () => {
-            document.body.classList.remove("headerbodyc");
-          };
-        }, []);
+  useEffect(() => {
+    document.body.classList.add("headerbodyc");
+
+    return () => {
+      document.body.classList.remove("headerbodyc");
+    };
+  }, []);
 
 
 
-        const schema = {
-          "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BlogPosting",
-                headline: posts.title.rendered,
-                "description": posts.yoast_head_json.description,
-                "image": posts?.yoast_head_json?.og_image?.[0]?.url,
-                "author": { "@type": "Person", "name": "Nishu Negi" },
-                "publisher": {
-                  "@type": "Organization",
-                  "name": "CareTab.ai",
-                  "logo": { "@type": "ImageObject", "url": "https://caretab.ai/assets/img/logo/logo.png" }
-                },
-                "datePublished": posts.date,
-                "dateModified": posts.modified,                
-                 mainEntityOfPageq: {"@type": "WebPage", "@id": `https://caretab.ai/blogs/${posts.slug}`,},
- 
-              },
-              {
-                "@type": "MedicalWebPage",
-                "name": posts.title.rendered,
-                "url": `https://caretab.ai/blogs/${posts.slug}`,
-                "about": { "@type": "MedicalTherapy", "name": posts.title.rendered, },
-                "lastReviewed": "2026-06-18"
-              },
-              {
-                "@type": "BreadcrumbList",
-                "itemListElement": [
-                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://caretab.ai/" },
-                  { "@type": "ListItem", "position": 2, "name": "Blogs", "item": "https://caretab.ai/blogs" },
-                  { "@type": "ListItem", "position": 3, "name": posts.title.rendered, "item": `https://caretab.ai/blogs/${posts.slug}`, }
-                ]
-              }
-            ]
-        };
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        headline: posts.title.rendered,
+        "description": posts.yoast_head_json.description,
+        "image": posts?.yoast_head_json?.og_image?.[0]?.url,
+        "author": { "@type": "Person", "name": "Nishu Negi" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "CareTab.ai",
+          "logo": { "@type": "ImageObject", "url": "https://caretab.ai/assets/img/logo/logo.png" }
+        },
+        "datePublished": posts.date,
+        "dateModified": posts.modified,
+        mainEntityOfPageq: { "@type": "WebPage", "@id": `https://caretab.ai/blogs/${posts.slug}`, },
+
+      },
+      {
+        "@type": "MedicalWebPage",
+        "name": posts.title.rendered,
+        "url": `https://caretab.ai/blogs/${posts.slug}`,
+        "about": { "@type": "MedicalTherapy", "name": posts.title.rendered, },
+        "lastReviewed": "2026-06-18"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://caretab.ai/" },
+          { "@type": "ListItem", "position": 2, "name": "Blogs", "item": "https://caretab.ai/blogs" },
+          { "@type": "ListItem", "position": 3, "name": posts.title.rendered, "item": `https://caretab.ai/blogs/${posts.slug}`, }
+        ]
+      }
+    ]
+  };
 
   return (
     <>
@@ -126,147 +128,112 @@ const SingleBlog = ({ posts, posts5, cat }) => {
 
 
       </Head>
-<main class="main">
-      {/* <div class="site-breadcrumb blogbanner">
-            <div class="container">
-                <h2 class="breadcrumb-title">Our Blog</h2>
-                <ul class="breadcrumb-menu">
-                    <li><a href="/">Home</a></li>
-                    <li class="active">Our Blog</li>
-                </ul>
-            </div>
-        </div> */}
+      <main class="main">
 
         <div class="blog-single py-120">
-            <div class="container">
-                <div class="row g-4">
-                    <div class="col-lg-8">
-                        <div class="blog-single-wrap">
-                            <div class="blog-single-content">
-                                <div class="blog-thumb-img">
-                                    <img
+          <div class="container">
+            <div class="row g-4">
+              <div class="col-lg-8">
+                <div class="blog-single-wrap">
+                  <div class="blog-single-content">
+                    <div class="blog-thumb-img">
+                      <img
+                        src={
+                          posts?.yoast_head_json?.og_image?.[0]
+                            ?.url || "/placeholder.jpg"
+                        }
+                        alt={
+                          posts?.title?.rendered ||
+                          "Blog Image"
+                        }
+
+                        className="ajimgfull"
+                        priority
+                      />
+                    </div>
+                    <div class="blog-info">
+                      <div class="blog-meta">
+                        <div class="blog-meta-left">
+                          <ul>
+                            <li><i class="far fa-user"></i><a href="#">{posts.yoast_head_json.author}</a></li>
+                            <li><i class="far fa-clock"></i>{new Date(
+                              posts.date
+                            ).toLocaleDateString("en-US", {
+                              month: "long",
+                              day: "2-digit",
+                              year: "numeric",
+                            })}</li>
+                          </ul>
+                        </div>
+                        
+                      </div>
+                      <div class="blog-details">
+                        <h1 class="blog-details-title mb-20">
+                          <div dangerouslySetInnerHTML={{ __html: posts.title.rendered }} />
+                        </h1>
+                       <div
+                        className="blog-content"
+                        dangerouslySetInnerHTML={{ __html: posts?.content?.rendered || "" }}
+                      />
+                        <hr />
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <aside class="blog-sidebar">
+                  <div class="widget recent-post">
+                    <h3 class="widget-title">Recent Post</h3>
+                    {posts5?.map((post) => (
+                      <div class="recent-post-item">
+                        <div class="recent-post-img">
+                          <Image
                             src={
-                              posts?.yoast_head_json?.og_image?.[0]
+                              post?.yoast_head_json?.og_image?.[0]
                                 ?.url || "/placeholder.jpg"
                             }
                             alt={
-                              posts?.title?.rendered ||
-                              "Blog Image"
+                              post?.title?.rendered ||
+                              "Recent Blog"
                             }
-
-                            className="ajimgfull"
-                            priority
+                            width={150}
+                            height={100}
+                            className="img-fluid"
+                            loading="lazy"
                           />
-                                </div>
-                                <div class="blog-info">
-                                    <div class="blog-meta">
-                                        <div class="blog-meta-left">
-                                            <ul>
-                                                <li><i class="far fa-user"></i><a href="#">{posts.yoast_head_json.author}</a></li>
-                                                <li><i class="far fa-clock"></i>{new Date(
-                                  posts.date
-                                ).toLocaleDateString("en-US", {
-                                  month: "long",
-                                  day: "2-digit",
-                                  year: "numeric",
-                                })}</li>
-                                            </ul>
-                                        </div>
-                                        {/* <div class="blog-meta-right">
-                                             <a href="#" class="share-link"><i class="far fa-share-alt"></i>Share</a>
-                                        </div> */}
-                                    </div>
-                                    <div class="blog-details">
-                                        <h1 class="blog-details-title mb-20"><div dangerouslySetInnerHTML={{ __html: posts.title.rendered }} /></h1>
-                                      <div dangerouslySetInnerHTML={{
-                            __html:
-                              posts?.content?.rendered || "",
-                          }}></div>
-
-
-                                        <hr/>
-                                    </div>
-                                    {/* <div class="blog-author">
-                                        <div class="blog-author-img">
-                                            <img src="/assets/img/blogs/author.jpg" alt=""/>
-                                        </div>
-                                        <div class="author-info">
-                                            <h6>Author</h6>
-                                            <h3 class="author-name">{posts.yoast_head_json.author}</h3>
-                                            <p>It is a long established fact that a reader will be distracted by the abcd readable content of a page when looking at its layout  that more less.</p>
-                                            <div class="author-social">
-                                                <a href="https://www.facebook.com/CareTab"><i class="fab fa-facebook-f"></i></a>
-                                                <a href="https://www.instagram.com/caretab.ai/"><i class="fab fa-instagram"></i></a>
-                                                <a href="https://www.linkedin.com/company/108111134"><i class="fab fa-linkedin-in"></i></a>
-                                            </div>
-                                        </div>
-                                    </div> */}
-                                </div>
-
-                            </div>
                         </div>
+                        <div class="recent-post-info">
+                          <h4><a href={`/blogs/${post.slug}`} > <div dangerouslySetInnerHTML={{ __html: post.title.rendered }} /> </a></h4>
+                          <span><i class="far fa-clock"></i> {moment(post?.date).format(
+                            "MMMM DD YYYY"
+                          )}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+
+                  <div class="widget social">
+                    <h5 class="widget-title">Follow Us</h5>
+                    <div class="social-link">
+                      <a href="https://www.facebook.com/CareTab"><i class="fab fa-facebook-f"></i></a>
+                      <a href="https://www.instagram.com/caretab.ai/"><i class="fab fa-instagram"></i></a>
+                      <a href="https://www.linkedin.com/company/108111134"><i class="fab fa-linkedin-in"></i></a>
                     </div>
-                    <div class="col-lg-4">
-                        <aside class="blog-sidebar">
-                            {/* <div class="widget category">
-                                <h2 class="widget-title">Category</h2>
-                                <div class="category-list">
-                                  {cat?.map((cats) => (
-                                    <a href="#"><i class="far fa-arrow-right"></i>{cats.name}<span></span></a>
-                                    ))}
-                                </div>
-                            </div> */}
+                  </div>
 
-
-                            <div class="widget recent-post">
-                                <h3 class="widget-title">Recent Post</h3>
-                              {posts5?.map((post) => (
-                                <div class="recent-post-item">
-                                    <div class="recent-post-img">
-                                        <Image
-                              src={
-                                post?.yoast_head_json?.og_image?.[0]
-                                  ?.url || "/placeholder.jpg"
-                              }
-                              alt={
-                                post?.title?.rendered ||
-                                "Recent Blog"
-                              }
-                              width={150}
-                              height={100}
-                              className="img-fluid"
-                              loading="lazy"
-                            />
-                                    </div>
-                                    <div class="recent-post-info">
-                                        <h4><a href={`/blogs/${post.slug}`} > <div dangerouslySetInnerHTML={{ __html: post.title.rendered }} /> </a></h4>
-                                        <span><i class="far fa-clock"></i> {moment(post?.date).format(
-                                "MMMM DD YYYY"
-                              )}</span>
-                                    </div>
-                                </div>
-                               ))}
-                            </div>
-
-
-                            <div class="widget social">
-                                <h5 class="widget-title">Follow Us</h5>
-                                <div class="social-link">
-                                    <a href="https://www.facebook.com/CareTab"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="https://www.instagram.com/caretab.ai/"><i class="fab fa-instagram"></i></a>
-                                    <a href="https://www.linkedin.com/company/108111134"><i class="fab fa-linkedin-in"></i></a>
-                                </div>
-                            </div>
-
-                        </aside>
-                    </div>
-                </div>
+                </aside>
+              </div>
             </div>
+          </div>
         </div>
 
       </main>
 
-      
+
     </>
   )
 }

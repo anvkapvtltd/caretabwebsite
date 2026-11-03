@@ -58,6 +58,10 @@ export default function Index({
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
 
+
+
+  // console.log("posts", posts)
+
   const loadMoreRef = useRef(null)
 
   /* =========================
