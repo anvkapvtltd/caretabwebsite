@@ -130,3 +130,50 @@ a {
 .blog-content table tbody tr:nth-child(even) {
   background: #fafafa;
 }
+
+
+/* ===== Blog content: paragraph + list font ek jaisa ===== */
+.blog-content,
+.blog-content p,
+.blog-content li,
+.blog-content td,
+.blog-content th {
+  font-family: inherit !important;
+}
+
+.blog-content p,
+.blog-content li {
+  font-size: 17px !important;
+  line-height: 1.7 !important;
+  color: #444;
+}
+
+/* ===== Bullet list ===== */
+.blog-content ul {
+  list-style: disc outside !important;
+  padding-left: 24px !important;
+  margin: 0 0 18px 0 !important;
+}
+
+.blog-content ol {
+  list-style: decimal outside !important;
+  padding-left: 24px !important;
+  margin: 0 0 18px 0 !important;
+}
+
+.blog-content ul li,
+.blog-content ol li {
+  display: list-item !important;   /* bullet ke liye zaroori */
+  list-style: inherit !important;
+  margin: 0 0 6px 0 !important;
+  padding: 0 !important;
+}
+
+/* nested list */
+.blog-content ul ul { list-style: circle outside !important; margin-top: 6px !important; }
+.blog-content ol ol { list-style: lower-alpha outside !important; margin-top: 6px !important; }
+
+/* WordPress list block ke andar ka <p> hata do (extra space ki wajah) */
+.blog-content li p {
+  margin: 0 !important;
+}
