@@ -70,7 +70,7 @@ export default function Footer() {
                                             CareTAB.ai is built and managed by a team of experienced doctors and nurses. Using all-round healthcare technology, we deliver reliable, efficient & high-quality medical care, right where you are.
                                         </p>
                                         <div class="footer-newsletter">
-                                            <h5>Subscribe Our Newsletter</h5>
+                                            <h5>Subscribe Our Newsletter1111</h5>
                                             <div class="newsletter-form">
                                                 <form action="#">
                                                     <div class="form-group">

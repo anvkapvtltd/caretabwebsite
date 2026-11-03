@@ -440,7 +440,7 @@ export default function Physiotherapy() {
                                         </h1>
                                         {/* <p className="text-justify">Physiotherapy plays a vital role in recovery, pain management, and improving quality of life. At CareTAB.ai, our certified physiotherapists provide personalized physiotherapy treatment at home, using evidence-based techniques to help you recover faster and move better.</p> */}
                                         <div className="hero-btn wow fadeInUp" data-delay="1s">
-                                            <a href="tel:+91-7891-444-333" className="theme-btn btnc">Call for Physiotherapy <i
+                                            <a href="tel:+91-7891-444-333" className="theme-btn btnc">Call To Book Physiotherapy <i
                                                 className="fas fa-arrow-right"></i></a>
                                         </div>
                                     </div>
