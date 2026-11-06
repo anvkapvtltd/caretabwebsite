@@ -14,11 +14,47 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export async function getServerSideProps() {
+// export async function getServerSideProps() {
+//   try {
+//     const res = await fetch(
+//       "https://admin.caretab.ai/wp-json/wp/v2/posts?_embed&categories_exclude=52505&per_page=6&page=1",
+//       {
+//         headers: {
+//           Accept: "application/json",
+//           "User-Agent": "Next.js Server",
+//         },
+//       }
+//     )
+
+//     const posts = await res.json()
+
+//     return {
+//       props: {
+//         initialPosts: posts || [],
+//         totalPages:
+//           Number(res.headers.get("X-WP-TotalPages")) || 1,
+//       },
+//     }
+//   } catch (error) {
+//     return {
+//       props: {
+//         initialPosts: [],
+//         totalPages: 1,
+//       },
+//     }
+//   }
+// }
+
+
+export async function getServerSideProps({ res: serverRes }) {
+  // Browser/CDN is page ko cache na kare
+  serverRes.setHeader("Cache-Control", "no-store, max-age=0")
+
   try {
     const res = await fetch(
-      "https://admin.caretab.ai/wp-json/wp/v2/posts?_embed&categories_exclude=52505&per_page=6&page=1",
+      "https://admin.caretab.ai/wp-json/wp/v2/posts?_embed&per_page=6&page=1",
       {
+        cache: "no-store",
         headers: {
           Accept: "application/json",
           "User-Agent": "Next.js Server",
@@ -30,21 +66,16 @@ export async function getServerSideProps() {
 
     return {
       props: {
-        initialPosts: posts || [],
-        totalPages:
-          Number(res.headers.get("X-WP-TotalPages")) || 1,
+        initialPosts: Array.isArray(posts) ? posts : [],
+        totalPages: Number(res.headers.get("X-WP-TotalPages")) || 1,
       },
     }
   } catch (error) {
     return {
-      props: {
-        initialPosts: [],
-        totalPages: 1,
-      },
+      props: { initialPosts: [], totalPages: 1 },
     }
   }
 }
-
 
 
 /* =========================
@@ -60,36 +91,72 @@ export default function Index({
 
 
 
-  // console.log("posts", posts)
+  console.log("posts", posts)
 
   const loadMoreRef = useRef(null)
 
   /* =========================
      LOAD MORE POSTS
   ========================= */
+  // const loadMorePosts = async () => {
+  //   if (loading || page >= totalPages) return
+
+  //   try {
+  //     setLoading(true)
+
+  //     const nextPage = page + 1
+
+  //     const res = await fetch(
+  //       `https://admin.caretab.ai/wp-json/wp/v2/posts?_embed&categories_exclude=52505&per_page=6&page=${nextPage}`
+  //     )
+
+  //     const newPosts = await res.json()
+
+  //     setPosts((prev) => [...prev, ...newPosts])
+
+  //     setPage(nextPage)
+  //   } catch (error) {
+  //     console.log("Load More Error:", error)
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
+
   const loadMorePosts = async () => {
-    if (loading || page >= totalPages) return
+  if (loading || page >= totalPages) return
 
-    try {
-      setLoading(true)
+  try {
+    setLoading(true)
 
-      const nextPage = page + 1
+    const nextPage = page + 1
 
-      const res = await fetch(
-        `https://admin.caretab.ai/wp-json/wp/v2/posts?_embed&categories_exclude=52505&per_page=6&page=${nextPage}`
-      )
+    const res = await fetch(
+      `https://admin.caretab.ai/wp-json/wp/v2/posts?_embed&per_page=6&page=${nextPage}`,
+      { cache: "no-store" }
+    )
 
-      const newPosts = await res.json()
+    const newPosts = await res.json()
 
-      setPosts((prev) => [...prev, ...newPosts])
-
-      setPage(nextPage)
-    } catch (error) {
-      console.log("Load More Error:", error)
-    } finally {
-      setLoading(false)
+    // Agar array nahi hai (error aaya) to crash mat karo
+    if (!Array.isArray(newPosts)) {
+      console.log("Load More API error:", newPosts)
+      return
     }
+
+    // Duplicate posts na aayein
+    setPosts((prev) => {
+      const ids = new Set(prev.map((p) => p.id))
+      const unique = newPosts.filter((p) => !ids.has(p.id))
+      return [...prev, ...unique]
+    })
+
+    setPage(nextPage)
+  } catch (error) {
+    console.log("Load More Error:", error)
+  } finally {
+    setLoading(false)
   }
+}
 
   /* =========================
      INTERSECTION OBSERVER
